@@ -1,8 +1,9 @@
-inputs := what_is_lug
+inputs := $(dir $(wildcard */))
+inputs := $(filter-out presentations/,$(inputs))
 
 all: $(inputs) copy
 
-.PHONY: what_is_lug
+.PHONY: $(inputs)
 $(inputs):
 	make -C $@
 
