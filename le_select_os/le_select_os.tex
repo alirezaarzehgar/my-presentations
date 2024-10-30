@@ -1,0 +1,85 @@
+\documentclass{beamer}
+\usetheme{Cuerna}
+
+\author{Alireza Arzehgar}
+\title{Selecting an Operating System}
+\date{\today}
+
+\begin{document}
+	\begin{frame}[plain]
+		\maketitle
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Introduction}
+		\begin{itemize}
+			\pause
+			\item What Is an OS?
+			\pause
+			\item Investigating User Interfaces Where
+			\pause
+			\item Where Does Linux Fit in the OS World?
+			\pause
+			\item What Is a Distribution?
+			\pause
+			\item Embedded Linux Systems
+			\pause
+			\item Linux in the Cloud
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{What Is an OS?}
+		\begin{columns}[onlytextwidth,T]
+		\column{\dimexpr\linewidth-50mm-5mm}
+			\only<1-7>{
+				\begin{itemize}
+					\item<1-7> What Is a Kernel?
+					\item<2-7> What Else Identifies an OS?
+					\begin{itemize}
+						\item<3-7> Command-Line Shells
+						\item<4-7> Graphical User Interfaces
+						\item<5-7> Utility Programs
+						\item<6-7> Libraries
+						\item<7-7> Productivity Programs
+					\end{itemize}
+				\end{itemize}
+			}
+		\column{50mm}
+			\only<1>{\includegraphics[width=\textwidth]{assets/kernel.png}}
+			\only<3>{\includegraphics[width=\textwidth]{assets/shell.png}}
+			\only<4>{\includegraphics[width=\textwidth]{assets/gui.png}}
+			\only<5>{\includegraphics[width=\textwidth]{assets/utility_programs.png}}
+			\only<6>{\includegraphics[width=\textwidth]{assets/libs.png}}
+			\only<7>{\includegraphics[width=\textwidth]{assets/prodprog.png}}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Investigating User Interfaces Where}
+		\begin{columns}[onlytextwidth,T]
+			\column{\dimexpr\linewidth-50mm-5mm}
+				\only<1-10>{
+					\begin{itemize}
+						\item <1-10>Using a Text-Mode User Interface
+						\item <2-10>Using a Graphical User Interface
+						\item <3-10>Program Launchers
+						\item <4-10>File Managers
+						\item <5-10>Window Controls
+						\item <6-10>Logout Options
+						\item <7-10>Multiple Desktops
+					\end{itemize}
+				}
+				\column{50mm}
+				\only<1>{\includegraphics[width=\textwidth]{assets/irc.png}}
+				\only<2>{\includegraphics[width=\textwidth]{assets/gui.png}}
+				\only<3>{\includegraphics[width=\textwidth]{assets/launcher.png}}
+				\only<4>{\includegraphics[width=\textwidth]{assets/file_manager.png}}
+
+				\only<7>{\includegraphics[width=\textwidth]{assets/deepin.png}}
+				\only<8>{\includegraphics[width=\textwidth]{assets/xfce.png}}
+				\only<9>{\includegraphics[width=\textwidth]{assets/gnome.png}}
+				\only<10>{\includegraphics[width=\textwidth]{assets/dwm.png}}
+			\end{columns}	
+	\end{frame}
+\end{document}
