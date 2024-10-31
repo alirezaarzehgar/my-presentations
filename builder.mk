@@ -1,8 +1,7 @@
 MAIN ?= $(wildcard *.tex)
 
 all: out
-	xelatex -output-directory=out/ ${MAIN}
-	xelatex -output-directory=out/ ${MAIN}
+	pdflatex -output-directory=out/ ${MAIN}
 
 out:
 	mkdir -p out

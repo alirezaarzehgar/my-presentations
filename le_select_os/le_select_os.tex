@@ -32,26 +32,26 @@
 		\frametitle{What Is an OS?}
 		\begin{columns}[onlytextwidth,T]
 		\column{\dimexpr\linewidth-50mm-5mm}
-			\only<1-7>{
+			\only<2-8>{
 				\begin{itemize}
-					\item<1-7> What Is a Kernel?
-					\item<2-7> What Else Identifies an OS?
+					\item<2-8> What Is a Kernel?
+					\item<3-8> What Else Identifies an OS?
 					\begin{itemize}
-						\item<3-7> Command-Line Shells
-						\item<4-7> Graphical User Interfaces
-						\item<5-7> Utility Programs
-						\item<6-7> Libraries
-						\item<7-7> Productivity Programs
+						\item<4-8> Command-Line Shells
+						\item<5-8> Graphical User Interfaces
+						\item<6-8> Utility Programs
+						\item<7-8> Libraries
+						\item<8-8> Productivity Programs
 					\end{itemize}
 				\end{itemize}
 			}
 		\column{50mm}
-			\only<1>{\includegraphics[width=\textwidth]{assets/kernel.png}}
-			\only<3>{\includegraphics[width=\textwidth]{assets/shell.png}}
-			\only<4>{\includegraphics[width=\textwidth]{assets/gui.png}}
-			\only<5>{\includegraphics[width=\textwidth]{assets/utility_programs.png}}
-			\only<6>{\includegraphics[width=\textwidth]{assets/libs.png}}
-			\only<7>{\includegraphics[width=\textwidth]{assets/prodprog.png}}
+			\only<2>{\includegraphics[width=\textwidth]{assets/kernel.png}}
+			\only<4>{\includegraphics[width=\textwidth]{assets/shell.png}}
+			\only<5>{\includegraphics[width=\textwidth]{assets/gui.png}}
+			\only<6>{\includegraphics[width=\textwidth]{assets/utility_programs.png}}
+			\only<7>{\includegraphics[width=\textwidth]{assets/libs.png}}
+			\only<8>{\includegraphics[width=\textwidth]{assets/prodprog.png}}
 		\end{columns}
 	\end{frame}
 
@@ -59,27 +59,111 @@
 		\frametitle{Investigating User Interfaces Where}
 		\begin{columns}[onlytextwidth,T]
 			\column{\dimexpr\linewidth-50mm-5mm}
-				\only<1-10>{
-					\begin{itemize}
-						\item <1-10>Using a Text-Mode User Interface
-						\item <2-10>Using a Graphical User Interface
-						\item <3-10>Program Launchers
-						\item <4-10>File Managers
-						\item <5-10>Window Controls
-						\item <6-10>Logout Options
-						\item <7-10>Multiple Desktops
-					\end{itemize}
-				}
-				\column{50mm}
-				\only<1>{\includegraphics[width=\textwidth]{assets/irc.png}}
-				\only<2>{\includegraphics[width=\textwidth]{assets/gui.png}}
-				\only<3>{\includegraphics[width=\textwidth]{assets/launcher.png}}
-				\only<4>{\includegraphics[width=\textwidth]{assets/file_manager.png}}
+			\only<2-11>{
+				\begin{itemize}
+					\item<2-11> Using a Text-Mode User Interface
+					\item<3-11> Using a Graphical User Interface
+					\item<4-11> Program Launchers
+					\item<5-11> File Managers
+					\item<6-11> Window Controls
+					\item<7-11> Logout Options
+					\item<8-11> Multiple Desktops
+				\end{itemize}
+			}
+			\column{50mm}
+			\only<2>{\includegraphics[width=\textwidth]{assets/irc.png}}
+			\only<3>{\includegraphics[width=\textwidth]{assets/gui.png}}
+			\only<4>{\includegraphics[width=\textwidth]{assets/launcher.png}}
+			\only<5>{\includegraphics[width=\textwidth]{assets/file_manager.png}}
 
-				\only<7>{\includegraphics[width=\textwidth]{assets/deepin.png}}
-				\only<8>{\includegraphics[width=\textwidth]{assets/xfce.png}}
-				\only<9>{\includegraphics[width=\textwidth]{assets/gnome.png}}
-				\only<10>{\includegraphics[width=\textwidth]{assets/dwm.png}}
-			\end{columns}	
+			\only<8>{\includegraphics[width=\textwidth]{assets/deepin.png}}
+			\only<9>{\includegraphics[width=\textwidth]{assets/xfce.png}}
+			\only<10>{\includegraphics[width=\textwidth]{assets/gnome.png}}
+			\only<11>{\includegraphics[width=\textwidth]{assets/dwm.png}}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Where Does Linux Fit in the OS World?}
+		\begin{columns}[onlytextwidth,T]
+			\column{\dimexpr\linewidth-50mm-5mm}
+			\only<2-11>{
+				\begin{itemize}
+					\item<2-11> Linux vs Windows
+					\begin{itemize}
+						\item<3-11> Licensing
+						\item<4-11> Costs
+						\item<5-11> Hardware Compatibility
+						\item<6-11> Software Availability
+						\item<7-11> User Interfaces
+						\item<8-11> Configurability
+						\item<9-11> Security
+					\end{itemize}
+					\item<10-11> Linux vs macOS
+					\item<11-11> Linux vs Unix
+				\end{itemize}
+			}
+			\column{50mm}
+			\only<2-11>{\includegraphics[width=\textwidth]{assets/all_os_logos.png}}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{What Is a Distribution?}
+		\begin{columns}[onlytextwidth,T]
+			\column{\dimexpr\linewidth-50mm-5mm}
+			\only<2-5>{
+				\begin{itemize}
+					\item<2-5> Debian
+					\item<3-5> Slackware
+					\item<4-5> RedHat
+					\item<5-5> ArchLinux
+				\end{itemize}
+			}
+			\column{50mm}
+			\only<2>{\includegraphics[width=0.5\textwidth]{assets/debian_logo.png}}
+			\only<3>{\includegraphics[width=0.5\textwidth]{assets/slackware_logo.png}}
+			\only<4>{\includegraphics[width=0.5\textwidth]{assets/redhat_logo.png}}
+			\only<5>{\includegraphics[width=0.5\textwidth]{assets/archlinux_logo.png}}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Embedded Linux Systems}
+		\begin{columns}[onlytextwidth,T]
+			\column{\dimexpr\linewidth-50mm-5mm}
+			\only<2-4>{
+				\begin{itemize}
+					\item<2-4> Android
+					\item<3-4> Network Appliances
+					\item<4-4> IoT Devices
+				\end{itemize}
+			}
+			\column{50mm}
+			\only<2>{\includegraphics[width=\textwidth]{assets/android_logo.png}}
+			\only<3>{\includegraphics[width=\textwidth]{assets/network_appliance.png}}
+			\only<4>{\includegraphics[width=\textwidth]{assets/iot.png}}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Linux in the Cloud}
+		\begin{columns}[onlytextwidth,T]
+			\column{\dimexpr\linewidth-50mm-5mm}
+			\only<2-6>{
+				\begin{itemize}
+					\item<2-6> What Is Cloud Computing?
+					\item<3-6> What Are the Cloud Services?
+					\begin{itemize}
+						\item<4-6> Infrastructure as a Service (IaaS)
+						\item<5-6> Platform as a Service (PaaS)
+						\item<6-6> Software as a Service (SaaS)
+					\end{itemize}
+				\end{itemize}
+			}
+			\column{50mm}
+			\only<2-3>{\includegraphics[width=\textwidth]{assets/cloud_computing.png}}
+			\only<4-6>{\includegraphics[width=\textwidth]{assets/cloud_service_types.png}}
+		\end{columns}		
 	\end{frame}
 \end{document}

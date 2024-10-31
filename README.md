@@ -25,3 +25,7 @@ I prepared a simple script to creating base files of a presentation.
 ```
 ./create_new.sh presentation_name
 ```
+
+# Dependencies
+- LaTeX
+- Inkscape
