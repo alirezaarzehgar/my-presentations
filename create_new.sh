@@ -11,33 +11,34 @@ if [ -f "$pres_name" ]; then
 	exit 1
 fi
 
-mkdir "$pres_name"
+mkdir -p "$pres_name/assets"
 
 cat << __EOF__ > "$pres_name/Makefile"
 include ../builder.mk
 __EOF__
 
 cat << __EOF__ > "$pres_name/$pres_name.tex"
-\documentclass{beamer}
-\usetheme{Cuerna}
+\documentclass[xcolor={rgb}]{beamer}
+
+\newcommand{\pitem}{\pause\item}
+\usetheme{cfermat}
 
 \author{Alireza Arzehgar}
-\title{Presentation title}
+\title{Title}
 \date{\today}
 
 \begin{document}
 	\begin{frame}[plain]
-		\maketitle
+		\titlepage
 	\end{frame}
 
-	\begin{frame}
-		\frametitle{Hello Presentation}
+	\begin{frame}{Frame Title}
+		\frametitle{Introduction}
 		\begin{itemize}
-			\pause
-			\item Item1
-			\pause
-			\item Item2
+			\pitem item1
+			\pitem item2
 		\end{itemize}
 	\end{frame}
+
 \end{document}
 __EOF__
