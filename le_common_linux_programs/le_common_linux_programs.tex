@@ -1,0 +1,131 @@
+\documentclass[xcolor={rgb}]{beamer}
+\usepackage[labelformat=empty]{caption}
+
+\newcommand{\pitem}{\pause\item}
+\usetheme{clagrange}
+
+\author{Alireza Arzehgar}
+\title{Using Common Linux Programs}
+\date{\today}
+
+\newcommand{\img}[3]{
+	\only<#1>{
+		\begin{figure}
+			\includegraphics[width=\textwidth]{#2}
+			\caption{#3}
+		\end{figure}
+	}
+}
+
+\newcounter{_i}
+\newcommand{\starcounting}{\setcounter{_i}{2}}
+\newcommand{\simg}[2]{
+	\stepcounter{_i}
+	\img{\value{_i}}{#1}{#2}
+}
+
+\begin{document}
+	\begin{frame}[plain]
+		\titlepage
+	\end{frame}
+
+	\begin{frame}{plain}
+		\frametitle{Introduction}
+		\begin{itemize}
+			\pitem Using a Linux Desktop Environment
+			\pitem Working with Productivity Software
+			\pitem Using Server Programs
+			\pitem Managing Programming Languages
+			\pitem Handling Software Packages		
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{plain}
+		\frametitle{Using a Linux Desktop Environment}
+		\begin{columns}[onlytextwidth,T]
+			\def\n {12}
+			\column{\dimexpr\linewidth-50mm-5mm}
+			\only<2-\n>{
+				\begin{itemize}
+					\item<2-\n> Desktop Environments
+					\item<11-\n> Program Launchers
+					\item<12-\n> File Manager
+				\end{itemize}
+			}
+			\column{50mm}
+			\starcounting
+			\simg{assets/de/deepin.png}{Deepin}
+			\simg{assets/de/gnome.png}{GNOME}
+			\simg{assets/de/xfce.png}{XFCE}
+			\simg{assets/de/ukui.png}{UKUI}
+			\simg{assets/de/mate.png}{GhostBSD MATE}
+			\simg{assets/de/unity.png}{Ubuntu Unity}
+			\simg{assets/de/kde.png}{Parchlinux KDE}
+			\simg{assets/de/me.png}{i3WM}
+			\simg{assets/de/gnome.png}{}
+			\simg{assets/de/unity.png}{}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{plain}
+		\frametitle{Working with Productivity Software}
+		\begin{columns}[onlytextwidth,T]
+			\def\n {20}
+			\column{\dimexpr\linewidth-50mm-5mm}
+			\only<2-\n>{
+				\begin{itemize}
+					\item<2-\n> Web Browsers
+					\item<7-\n> Email Clients
+					\item<12-\n> Office Tools
+					\item<14-\n> Multimedia Applications
+					\item<19-\n> Compilers \& Interpreters
+					\item<20-\n> Server Programs
+				\end{itemize}
+				}
+			\column{50mm}
+			\starcounting
+			\simg{assets/ps/chrome.png}{Chrome}%3
+			\simg{assets/ps/firefox.png}{Firefox}
+			\simg{assets/ps/web.png}{GNOME Web (Epiphany)}
+			\simg{assets/ps/lynx.png}{Lynx}
+
+			\simg{assets/ps/evolution.png}{GNOME Evolution}%7
+			\simg{assets/ps/kmail.png}{KMail}
+			\simg{assets/ps/mutt.png}{Mutt}
+			\simg{assets/ps/aerc.png}{Aerc}
+			\simg{assets/ps/thunderbird.png}{Thunderbird}
+
+			\simg{assets/ps/openoffice.png}{Apache OpenOffice}%12
+			\simg{assets/ps/libreoffice.png}{LibreOffice}
+			
+			\simg{assets/ps/audacity.png}{Audacity}%14
+			\simg{assets/ps/blender.png}{Blender}
+			\simg{assets/ps/castero.png}{Castero}
+			\simg{assets/ps/obs.png}{Open Broadcaster Software (OBS) Studio}
+			\simg{assets/ps/kdenlive.png}{Kdenlive}%18
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{plain}
+		\frametitle{Handling Software Packages}
+		\begin{columns}[onlytextwidth,T]
+			\def\n {20}
+			\column{\dimexpr\linewidth-50mm-5mm}
+			\only<2-\n>{
+				\begin{itemize}
+					\item<1-\n> GUI
+					\item<2-\n> CLI
+					\begin{itemize}
+						\item<3-\n> Advanced package tool (APT)
+						\item<4-\n> RedHat Package Manager (RPM)
+						\item<5-\n> Pacman
+					\end{itemize}
+				\end{itemize}
+			}
+			\column{50mm}
+			\starcounting
+			\simg{assets/pkg/gnome.png}{Gnome Software Manager}
+		\end{columns}
+	\end{frame}
+		
+\end{document}
