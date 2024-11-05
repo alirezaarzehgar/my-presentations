@@ -19,9 +19,26 @@ __EOF__
 
 cat << __EOF__ > "$pres_name/$pres_name.tex"
 \documentclass[xcolor={rgb}]{beamer}
+\usepackage[labelformat=empty]{caption}
 
 \newcommand{\pitem}{\pause\item}
 \usetheme{cfermat}
+
+\newcommand{\img}[3]{
+	\only<#1>{
+		\begin{figure}
+			\includegraphics[width=\textwidth]{#2}
+			\caption{#3}
+		\end{figure}
+	}
+}
+
+\newcounter{_i}
+\newcommand{\starcounting}{\setcounter{_i}{2}}
+\newcommand{\simg}[2]{
+	\stepcounter{_i}
+	\img{\value{_i}}{#1}{#2}
+}
 
 \author{Alireza Arzehgar}
 \title{Title}
