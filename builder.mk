@@ -1,8 +1,9 @@
 MAIN ?= $(wildcard *.tex)
 LATEX ?= pdflatex
+FLAGS ?= -output-directory=out/
 
 all: out
-	${LATEX} -output-directory=out/ ${MAIN}
+	${LATEX} ${FLAGS} ${MAIN}
 
 out:
 	mkdir -p out
