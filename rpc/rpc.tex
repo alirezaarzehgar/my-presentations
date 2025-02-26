@@ -41,41 +41,53 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]{Simple RPC interface definition}
+  \begin{minted}[escapeinside=©©]{go}
+type PrintArgs struct{}
+
+type PrintReply struct {
+  Msg string
+}
+  \end{minted}
+\end{frame}
+
 \begin{frame}[fragile]{Simple RPC Server}
   \begin{minted}[escapeinside=©©]{go}
-    type Hello struct{}
+type Hello struct{}
 
-    func (Hello) Print(emptyArg, reply *string) error {
-      *reply = "Hello, World!"
-      return nil
-    }
+func (Hello) Print(a *PrintArgs, r *PrintReply) error {
+  r.Msg = "Hello, World!"
+  return nil
+}
 
-    func main() {
-      rpc.Register(new(Hello))
-      l, _ := net.Listen("tcp", ":8888")
-      for {
-        conn, _ := l.Accept()
-        rpc.ServeConn(conn)
-      }
-    }
+func main() {
+  rpc.Register(new(Hello))
+
+  l, _ := net.Listen("tcp", ":8888")
+  for {
+    conn, _ := l.Accept()
+    rpc.ServeConn(conn)
+  }
+}    
   \end{minted}
 \end{frame}
 
 \begin{frame}[fragile]{Simple RPC Client}
   \begin{minted}[escapeinside=©©]{go}
-    func main() {
-      c, _ := rpc.Dial("tcp", "localhost:8888")
+func main() {
+  c, _ := rpc.Dial("tcp", "localhost:8888")
 
-      var reply string
-      c.Call("Hello.Print", "", &reply)
+  var reply PrintReply
+  c.Call("Hello.Print", PrintArgs{}, &reply)
 
-      fmt.Println(reply)
-    }
-    // OUTPUT: Hello, World!
-  \end{minted}
+  fmt.Println(reply.Msg)
+}
+
+// OUTPUT: Hello, World!
+\end{minted}
 \end{frame}
 
-\begin{frame}{RPC frameworks}
+\begin{frame}{Interface Definition Language (IDL)}
   \begin{itemize}
       \pitem item1
   \end{itemize}
