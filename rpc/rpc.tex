@@ -100,6 +100,16 @@ func main() {
   \end{itemize}
 \end{frame}
 
+\begin{frame}{The advantages of gRPC}
+  \begin{itemize}
+      \pitem Speed and performance
+      \pitem Type safety
+      \pitem Self documented architecture
+      \pitem Code generators
+      \pitem Support streaming, authentication, load balancing, etc.
+  \end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]{Protocol Buffer (protobuf) example}
   \begin{minted}{proto}
 syntax = "proto3";
@@ -114,6 +124,14 @@ message Request {}
 message Response {
   string Message = 1;
 }
+  \end{minted}
+
+  \vspace{-0.5cm}
+  \noindent\rule{\textwidth}{0.1pt}
+  \begin{minted}[fontsize=\footnotesize]{bash}
+$ protoc --go_out=. --go_opt=module=/main \
+  --go-grpc_opt=paths=source_relative \
+  --go-grpc_out=.  ./api.proto
   \end{minted}
 \end{frame}
 
@@ -149,12 +167,6 @@ func main() {
 
 // OUTPUT: Hello, World!
   \end{minted}
-\end{frame}
-
-\begin{frame}{RPC vs REST}
-  \begin{itemize}
-      \pitem item1
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
