@@ -1,9 +1,11 @@
 \documentclass[xcolor={rgb}]{beamer}
 \usepackage[labelformat=empty]{caption}
 \usepackage[outputdir=out]{minted}
+\usepackage{metalogo}
+\usepackage{fontspec}
+\usepackage{tikz}
 
-\newcommand{\pitem}{\pause
-\item}
+\newcommand{\pitem}{\pause \item}
 \usetheme{Arguelles}
 
 \newcommand{\img}[3]{
@@ -23,7 +25,7 @@
 }
 
 \author{Alireza Arzehgar}
-\title{Introduction to {\color{red}Remote Procedure Call} (RPC)}
+\title{Introduction to \\{\color{red}Remote Procedure Call (RPC)}}
 \date{\today}
 
 \begin{document}
@@ -33,45 +35,35 @@
 
 \begin{frame}{What is Remote Procedure Call?}
   % A person who shouted to other with a call
+  \pause
+  {\Large Definitions:}
   \begin{itemize}
       \pitem A way to execute a \textbf{procedure} that could be running in a separate application on the same
-      machine or even potentially on the network.
-      \pitem A client-server mechanism for \textbf{interprocess communication (IPC)}.
-      \pitem Needed an specific protocol for client-server communication called \textbf{interface definition}.
+      machine or even potentially on the network. (\textit{Building Microservices with Go})
+      \pitem A client-server mechanism for \textbf{interprocess communication}. (\textit{Mastering Go second edition})
+  \end{itemize}
+
+  \vspace{0.3cm}
+
+  \pause
+  {\Large Implementation Stages:}
+  \begin{itemize}
+      \pitem Design a interface definition.
+      \pitem Develop server-side application.
+      \pitem Architect client-side program.
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Simple Golang RPC Interface Definition}
   \begin{minted}{go}
 type Hello interface {
-  Print(*PrintArgs, *PrintReply) error
+  Print(*Request, *Response) error
 }
 
-type PrintArgs struct{}
+type Request struct{}
 
-type PrintReply struct {
+type Response struct {
   Msg string
-}
-  \end{minted}
-\end{frame}
-
-\begin{frame}[fragile]{Simple Golang RPC Server}
-  \begin{minted}{go}
-type Hello struct{}
-
-func (Hello) Print(a *PrintArgs, r *PrintReply) error {
-  r.Msg = "Hello, World!"
-  return nil
-}
-
-func main() {
-  rpc.Register(new(Hello))
-
-  l, _ := net.Listen("tcp", ":8888")
-  for {
-    conn, _ := l.Accept()
-    rpc.ServeConn(conn)
-  }
 }
   \end{minted}
 \end{frame}
@@ -79,15 +71,36 @@ func main() {
 \begin{frame}[fragile]{Simple Golang RPC Client}
   \begin{minted}{go}
 func main() {
-  c, _ := rpc.Dial("tcp", "localhost:8888")
+  c, _ := rpc.Dial("tcp", "localhost:8000")
 
-  var reply PrintReply
-  c.Call("Hello.Print", PrintArgs{}, &reply)
+  var reply Response
+  c.Call("Hello.Print", Request{}, &reply)
 
   fmt.Println(reply.Msg)
 }
 
 // OUTPUT: Hello, World!
+  \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Simple Golang RPC Server}
+  \begin{minted}{go}
+type Hello struct{}
+
+func (Hello) Print(rq *Request, rs *Response) error {
+  rs.Msg = "Hello, World!"
+  return nil
+}
+
+func main() {
+  rpc.Register(new(Hello))
+
+  l, _ := net.Listen("tcp", ":8000")
+  for {
+    conn, _ := l.Accept()
+    rpc.ServeConn(conn)
+  }
+}
   \end{minted}
 \end{frame}
 
@@ -100,7 +113,7 @@ func main() {
   \end{itemize}
 \end{frame}
 
-\begin{frame}{The advantages of gRPC}
+\begin{frame}{The Advantages of gRPC}
   \begin{itemize}
       \pitem Speed and performance
       \pitem Type safety
@@ -110,7 +123,7 @@ func main() {
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Protocol Buffer (protobuf) example}
+\begin{frame}[fragile]{Protocol Buffer (protobuf) Example}
   \begin{minted}{proto}
 syntax = "proto3";
 option go_package = "/main";
@@ -125,6 +138,8 @@ message Response {
   string Message = 1;
 }
   \end{minted}
+
+  \pause
 
   \vspace{-0.5cm}
   \noindent\rule{\textwidth}{0.1pt}
@@ -149,7 +164,7 @@ func main() {
   s := grpc.NewServer()
   RegisterHelloServer(s, hello{})
 
-  l, _ := net.Listen("tcp", ":8888")
+  l, _ := net.Listen("tcp", ":8000")
   s.Serve(l)
 }
   \end{minted}
@@ -158,7 +173,7 @@ func main() {
 \begin{frame}[fragile]{gRPC Client}
   \begin{minted}{go}
 func main() {
-  conn, _ := grpc.Dial(":8888", grpc.WithInsecure())
+  conn, _ := grpc.Dial(":8000", grpc.WithInsecure())
   client := NewHelloClient(conn)
   r, _ := client.Print(context.Background(), &Request{})
 
@@ -171,10 +186,10 @@ func main() {
 
 \begin{frame}[fragile]{Where You Should Embrace RPC}
   \begin{itemize}
-    \pitem Communication between microservices
-    \pitem Performance critical projects
-    \pitem Work with blockchain technologies (JSON-RPC)
-    \pitem Components are tightly coupled
+      \pitem Communication between microservices
+      \pitem Performance critical projects
+      \pitem Work with blockchain technologies (JSON-RPC)
+      \pitem Components are tightly coupled
   \end{itemize}
 \end{frame}
 
