@@ -33,9 +33,14 @@
   \titlepage
 \end{frame}
 
+
+\begin{frame}{The simplest possible explanation}
+  \includegraphics[width=\textwidth]{assets/RPC.png}
+\end{frame}
+
 \begin{frame}{What is Remote Procedure Call?}
   % A person who shouted to other with a call
-  \pause
+
   {\Large Definitions:}
   \begin{itemize}
       \pitem A way to execute a \textbf{procedure} that could be running in a separate application on the same
@@ -56,7 +61,7 @@
 
 \begin{frame}[fragile]{Simple Golang RPC Interface Definition}
   \begin{minted}{go}
-type Hello interface {
+type HelloService interface {
   Print(*Request, *Response) error
 }
 
@@ -70,11 +75,12 @@ type Response struct {
 
 \begin{frame}[fragile]{Simple Golang RPC Client}
   \begin{minted}{go}
+// client.go
 func main() {
   c, _ := rpc.Dial("tcp", "localhost:8000")
 
   var reply Response
-  c.Call("Hello.Print", Request{}, &reply)
+  c.Call("Hello.Print", &Request{}, &reply)
 
   fmt.Println(reply.Msg)
 }
@@ -85,16 +91,16 @@ func main() {
 
 \begin{frame}[fragile]{Simple Golang RPC Server}
   \begin{minted}{go}
+// server.go
 type Hello struct{}
 
-func (Hello) Print(rq *Request, rs *Response) error {
-  rs.Msg = "Hello, World!"
+func (Hello) Print(req *Request, res *Response) error {
+  res.Msg = "Hello, World!"
   return nil
 }
 
 func main() {
   rpc.Register(new(Hello))
-
   l, _ := net.Listen("tcp", ":8000")
   for {
     conn, _ := l.Accept()
@@ -104,27 +110,31 @@ func main() {
   \end{minted}
 \end{frame}
 
-\begin{frame}{RPC Technologies}
+\begin{frame}{History}
   \begin{itemize}
-      \pitem gRPC
-      \pitem Thrift
-      \pitem JSON-RPC
-      \pitem Remote Method Invocation (JMI)
+    \pitem Sun's RPC (ONC RPC) - \textit{1981}
+    \pitem Remote Method Invocation (RMI) - \textit{1990}
+    \pitem HTTP 1 - \textit{1996}
+    \pitem REST - \textit{2000}
+    \pitem Apache Thrift - \textit{2007}
+    \pitem HTTP 2 - \textit{2015}
+    \pitem gRPC - \textit{2015}
   \end{itemize}
 \end{frame}
 
 \begin{frame}{The Advantages of gRPC}
   \begin{itemize}
-      \pitem Speed and performance
-      \pitem Type safety
-      \pitem Self documented architecture
-      \pitem Code generators
-      \pitem Support streaming, authentication, load balancing, etc.
+    \pitem Code generators
+    \pitem Speed and performance
+    \pitem Type safety
+    \pitem Self documented architecture
+    \pitem Support streaming, authentication, load balancing, etc.
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Protocol Buffer (protobuf) Example}
   \begin{minted}{proto}
+// api.proto
 syntax = "proto3";
 option go_package = "/main";
 
@@ -150,8 +160,25 @@ $ protoc --go_out=. --go_opt=module=/main \
   \end{minted}
 \end{frame}
 
+\begin{frame}[fragile]{gRPC Client}
+  \begin{minted}{go}
+// client.go
+func main() {
+  remote := "localhost:8000"
+  conn, _ := grpc.Dial(remote, grpc.WithInsecure())
+  client := NewHelloClient(conn)
+  r, _ := client.Print(context.Background(), &Request{})
+
+  fmt.Println(r.Message)
+}
+
+// OUTPUT: Hello, World!
+  \end{minted}
+\end{frame}
+
 \begin{frame}[fragile]{gRPC Server}
   \begin{minted}[fontsize=\footnotesize]{go}
+// server.go
 type hello struct {
   UnimplementedHelloServer
 }
@@ -170,26 +197,12 @@ func main() {
   \end{minted}
 \end{frame}
 
-\begin{frame}[fragile]{gRPC Client}
-  \begin{minted}{go}
-func main() {
-  conn, _ := grpc.Dial(":8000", grpc.WithInsecure())
-  client := NewHelloClient(conn)
-  r, _ := client.Print(context.Background(), &Request{})
-
-  fmt.Println(r.Message)
-}
-
-// OUTPUT: Hello, World!
-  \end{minted}
-\end{frame}
-
 \begin{frame}[fragile]{Where You Should Embrace RPC}
   \begin{itemize}
-      \pitem Communication between microservices
-      \pitem Performance critical projects
-      \pitem Work with blockchain technologies (JSON-RPC)
-      \pitem Components are tightly coupled
+    \pitem Communication between microservices
+    \pitem Performance critical projects
+    \pitem Work with blockchain technologies (JSON-RPC)
+    \pitem Components are tightly coupled
   \end{itemize}
 \end{frame}
 
