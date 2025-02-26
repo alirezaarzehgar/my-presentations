@@ -41,8 +41,12 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Simple RPC interface definition}
-  \begin{minted}[escapeinside=©©]{go}
+\begin{frame}[fragile]{Simple Golang RPC interface definition}
+  \begin{minted}{go}
+type Hello interface {
+  Print(*PrintArgs, *PrintReply) error
+}
+
 type PrintArgs struct{}
 
 type PrintReply struct {
@@ -51,8 +55,8 @@ type PrintReply struct {
   \end{minted}
 \end{frame}
 
-\begin{frame}[fragile]{Simple RPC Server}
-  \begin{minted}[escapeinside=©©]{go}
+\begin{frame}[fragile]{Simple Golang RPC Server}
+  \begin{minted}{go}
 type Hello struct{}
 
 func (Hello) Print(a *PrintArgs, r *PrintReply) error {
@@ -68,12 +72,12 @@ func main() {
     conn, _ := l.Accept()
     rpc.ServeConn(conn)
   }
-}    
+}
   \end{minted}
 \end{frame}
 
-\begin{frame}[fragile]{Simple RPC Client}
-  \begin{minted}[escapeinside=©©]{go}
+\begin{frame}[fragile]{Simple Golang RPC Client}
+  \begin{minted}{go}
 func main() {
   c, _ := rpc.Dial("tcp", "localhost:8888")
 
@@ -84,25 +88,67 @@ func main() {
 }
 
 // OUTPUT: Hello, World!
-\end{minted}
+  \end{minted}
 \end{frame}
 
-\begin{frame}{Interface Definition Language (IDL)}
+\begin{frame}{RPC Technologies}
   \begin{itemize}
-      \pitem item1
+      \pitem gRPC
+      \pitem Thrift
+      \pitem JSON-RPC
+      \pitem Remote Method Invocation (JMI)
   \end{itemize}
 \end{frame}
 
-\begin{frame}{RPC frameworks}
-  \begin{itemize}
-      \pitem item1
-  \end{itemize}
+\begin{frame}[fragile]{Protocol Buffer (protobuf) example}
+  \begin{minted}{proto}
+syntax = "proto3";
+option go_package = "/main";
+
+service Hello {
+  rpc Print (Request) returns (Response);
+}
+
+message Request {}
+
+message Response {
+  string Message = 1;
+}
+  \end{minted}
 \end{frame}
 
-\begin{frame}{RPC for you}
-  \begin{itemize}
-      \pitem item1
-  \end{itemize}
+\begin{frame}[fragile]{gRPC Server}
+  \begin{minted}[fontsize=\footnotesize]{go}
+type hello struct {
+  UnimplementedHelloServer
+}
+
+func (hello) Print(c context.Context, r *Request) (*Response, error) {
+  return &Response{Message: "Hello, Wrold"}, nil
+}
+
+func main() {
+  s := grpc.NewServer()
+  RegisterHelloServer(s, hello{})
+
+  l, _ := net.Listen("tcp", ":8888")
+  s.Serve(l)
+}
+  \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{gRPC Client}
+  \begin{minted}{go}
+func main() {
+  conn, _ := grpc.Dial(":8888", grpc.WithInsecure())
+  client := NewHelloClient(conn)
+  r, _ := client.Print(context.Background(), &Request{})
+
+  fmt.Println(r.Message)
+}
+
+// OUTPUT: Hello, World!
+  \end{minted}
 \end{frame}
 
 \begin{frame}{RPC vs REST}
