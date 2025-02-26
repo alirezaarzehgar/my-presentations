@@ -1,23 +1,25 @@
 \documentclass[xcolor={rgb}]{beamer}
 \usepackage[labelformat=empty]{caption}
+\usepackage[outputdir=out]{minted}
 
-\newcommand{\pitem}{\pause\item}
+\newcommand{\pitem}{\pause
+\item}
 \usetheme{Arguelles}
 
 \newcommand{\img}[3]{
-	\only<#1>{
-		\begin{figure}
-			\includegraphics[width=\textwidth]{#2}
-			\caption{#3}
-		\end{figure}
-	}
+  \only<#1>{
+    \begin{figure}
+      \includegraphics[width=\textwidth]{#2}
+      \caption{#3}
+    \end{figure}
+  }
 }
 
 \newcounter{_i}
 \newcommand{\starcounting}{\setcounter{_i}{2}}
 \newcommand{\simg}[2]{
-	\stepcounter{_i}
-	\img{\value{_i}}{#1}{#2}
+  \stepcounter{_i}
+  \img{\value{_i}}{#1}{#2}
 }
 
 \author{Alireza Arzehgar}
@@ -25,52 +27,83 @@
 \date{\today}
 
 \begin{document}
-	\begin{frame}[plain]
-		\titlepage
-	\end{frame}
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
 
-	\begin{frame}{Story of RPC}
-		\begin{itemize}
-			\pitem item1
-			\pitem item2
-		\end{itemize}
-	\end{frame}
+\begin{frame}{What is Remote Procedure Call?}
+  % A person who shouted to other with a call
+  \begin{itemize}
+      \pitem A way to execute a \textbf{procedure} that could be running in a separate application on the same
+      machine or even potentially on the network.
+      \pitem A client-server mechanism for \textbf{interprocess communication (IPC)}.
+      \pitem Needed an specific protocol for client-server communication called \textbf{interface definition}.
+  \end{itemize}
+\end{frame}
 
-	\begin{frame}{Examples of RPC}
-		\begin{itemize}
-			\pitem item1
-		\end{itemize}
-	\end{frame}
+\begin{frame}[fragile]{Simple RPC Server}
+  \begin{minted}[escapeinside=©©]{go}
+    type Hello struct{}
 
-	\begin{frame}{RPC frameworks}
-		\begin{itemize}
-			\pitem item1
-		\end{itemize}
-	\end{frame}
+    func (Hello) Print(emptyArg, reply *string) error {
+      *reply = "Hello, World!"
+      return nil
+    }
 
-	\begin{frame}{RPC frameworks}
-		\begin{itemize}
-			\pitem item1
-		\end{itemize}
-	\end{frame}
+    func main() {
+      rpc.Register(new(Hello))
+      l, _ := net.Listen("tcp", ":8888")
+      for {
+        conn, _ := l.Accept()
+        rpc.ServeConn(conn)
+      }
+    }
+  \end{minted}
+\end{frame}
 
-	\begin{frame}{RPC for you}
-		\begin{itemize}
-			\pitem item1
-		\end{itemize}
-	\end{frame}
+\begin{frame}[fragile]{Simple RPC Client}
+  \begin{minted}[escapeinside=©©]{go}
+    func main() {
+      c, _ := rpc.Dial("tcp", "localhost:8888")
 
-	\begin{frame}{RPC vs REST}
-		\begin{itemize}
-			\pitem item1
-		\end{itemize}
-	\end{frame}
+      var reply string
+      c.Call("Hello.Print", "", &reply)
 
-	\begin{frame}
-		\vfill
-		\begin{center}
-			\Huge Tell us about your experiences
-		\end{center}
-		\vfill
-	\end{frame}
+      fmt.Println(reply)
+    }
+    // OUTPUT: Hello, World!
+  \end{minted}
+\end{frame}
+
+\begin{frame}{RPC frameworks}
+  \begin{itemize}
+      \pitem item1
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{RPC frameworks}
+  \begin{itemize}
+      \pitem item1
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{RPC for you}
+  \begin{itemize}
+      \pitem item1
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{RPC vs REST}
+  \begin{itemize}
+      \pitem item1
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \vfill
+  \begin{center}
+    \Huge Tell us about your experiences
+  \end{center}
+  \vfill
+\end{frame}
 \end{document}
