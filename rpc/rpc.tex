@@ -41,7 +41,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Simple Golang RPC interface definition}
+\begin{frame}[fragile]{Simple Golang RPC Interface Definition}
   \begin{minted}{go}
 type Hello interface {
   Print(*PrintArgs, *PrintReply) error
@@ -167,6 +167,15 @@ func main() {
 
 // OUTPUT: Hello, World!
   \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Where You Should Embrace RPC}
+  \begin{itemize}
+    \pitem Communication between microservices
+    \pitem Performance critical projects
+    \pitem Work with blockchain technologies (JSON-RPC)
+    \pitem Components are tightly coupled
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
