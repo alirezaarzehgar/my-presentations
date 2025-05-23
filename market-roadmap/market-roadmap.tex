@@ -1,0 +1,134 @@
+\documentclass[xcolor={rgb}]{beamer}
+\usepackage[labelformat=empty]{caption}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+
+\newcommand{\pitem}{\pause\item}
+\usetheme{Arguelles}
+
+\newcommand{\img}[3]{
+	\only<#1>{
+		\begin{figure}
+			\includegraphics[width=\textwidth]{#2}
+			\caption{#3}
+		\end{figure}
+	}
+}
+
+\author{Alireza Arzehgar}
+\title{Roadmap for entering engineering and the job market}
+\date{\today}
+
+\begin{document}
+	\begin{frame}[plain]
+		\titlepage
+	\end{frame}
+
+	\begin{frame}{Introduction}
+		\begin{itemize}
+			\pitem Technical Skills/Hard Skills
+			\begin{itemize}
+				\item Engineering Fields
+				\item Roadmap \& learning
+			\end{itemize}
+
+			\pitem Professional Development
+			\begin{itemize}
+				\item Networking
+				\item Personal Branding
+				\item Job Seeking
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Engineering Fields}
+		\begin{itemize}
+			\pitem Engineering Teams
+			\begin{itemize}
+				\pitem Developer Team
+				\begin{itemize}
+					\item Web Developer (Frontend, Backend)
+					\item AI Engineer (ML, Computer Vision, NLP, Gen AI, Data Science, ...)
+					\item Mobile Developer
+					\item Desktop Application Developer
+					\item Blockchain Developer
+				\end{itemize}
+				\pitem Operation Team
+				\begin{itemize}
+					\item System Admin
+					\item Network Admin/Network Engineer
+					\item Helpdesk \& IT Support
+				\end{itemize}
+
+				\pitem Hardware Engineering Team
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Roadmap \& learning}
+        \begin{columns}[onlytextwidth,T]
+            \column{\dimexpr\linewidth-50mm-5mm}
+            \only<2-9>{
+				\begin{itemize}
+					\item<2-9> \textbf{Roadmap}:
+					\begin{itemize}
+						\item<2-9> \url{https://roadmap.sh}
+						\item<5-9> GitHub Awesome Pages
+					\end{itemize}
+					
+					\item<5-9> \textbf{Learning}:
+					\begin{itemize}
+						\item<6-9> Video Course
+						\item<7-9> Reference
+						\item<8-9> Books
+						\item<9-9> Market requirements (Check Recruiting Websites like jobinja)
+					\end{itemize}
+				\end{itemize}
+            }
+            \column{50mm}
+            \only<2>{\includegraphics[width=\textwidth]{assets/roadmapsh-rolebased.png}}
+            \only<3>{\includegraphics[width=\textwidth]{assets/roadmapsh-skillbased.png}}
+            \only<4>{\includegraphics[width=\textwidth]{assets/roadmapsh-sample.png}}
+            \only<5>{\includegraphics[width=\textwidth]{assets/awesome.png}}
+        \end{columns}
+	\end{frame}
+
+	\begin{frame}{Professional Development}
+		\begin{itemize}
+			\pitem Networking \& Personal Branding
+			\begin{itemize}
+				\pitem Events
+				\begin{itemize}
+					\item Mashhad Linux Users Group (\url{https://t.me/mashhadlug})
+					\item Code \& Coffee (\url{https://t.me/MashhadCodeAndCoffee})
+					\item Hamfekr (\url{https://t.me/mashhadhamfekr})
+				\end{itemize}
+
+				\pitem Social Media
+				\begin{itemize}
+					\item LinkedIn
+					\item GitHub
+					\item Stack Exchange
+					\item YouTube, Instagram, ...
+				\end{itemize}
+			\end{itemize}
+
+			\pitem Job Seeking
+			\begin{itemize}
+				\item Learn more about local companies
+				\item Writing standard tailored resume
+				\item Recruiting websites (jobinja, jobvision, irantalent, ...)
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+	\vfill
+	\begin{center}
+		\Huge Ask your questions or tell us about your experiences
+	\end{center}
+	\vfill
+	\end{frame}
+\end{document}
