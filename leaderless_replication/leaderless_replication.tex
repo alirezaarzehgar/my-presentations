@@ -1,0 +1,199 @@
+\documentclass[xcolor={rgb}]{beamer}
+\usepackage[labelformat=empty]{caption}
+\usepackage[outputdir=out]{minted}
+
+\newcommand{\pitem}{\pause\item}
+\usetheme{metropolis}
+
+\newcommand{\img}[3]{
+	\only<#1>{
+		\begin{figure}
+			\includegraphics[width=\textwidth]{#2}
+			\caption{#3}
+		\end{figure}
+	}
+}
+
+\newcounter{_i}
+\newcommand{\starcounting}{\setcounter{_i}{2}}
+\newcommand{\simg}[2]{
+	\stepcounter{_i}
+	\img{\value{_i}}{#1}{#2}
+}
+
+\author{Alireza Arzehgar}
+\title{Leaderless Replication}
+\date{\today}
+
+\begin{document}
+	\begin{frame}[plain]
+		\titlepage
+	\end{frame}
+
+	\begin{frame}{Introduction}
+		\begin{itemize}
+			\pitem Replication
+			\pitem Scaling to Higher Load
+			\pitem Algorithms for replicating changes between nodes
+			\pitem Single-Leader Replication
+			\pitem Multi-Leader Replication
+			\pitem Leaderless Replication
+			\pitem Eventual Consistency
+			\pitem Quorum
+			\pitem Sloppy Quorum and Hinted handoff
+			\pitem Real ScyllaDB cluster scenario
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Replication}
+		\begin{itemize}
+			\pitem What is Replication?
+			\pitem Reasons why you might want to replicate data:
+			\begin{itemize}
+				\item Latency
+				\item Fault tolerance/high availability
+				\item Scalability
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Scaling to Higher Load}
+		\begin{itemize}
+			\pitem \textit{Vertical Scaling}
+			\begin{itemize}
+				\item Shared-Memory Architectire
+				\item Shared-Disk Architectire
+			\end{itemize}
+			\pitem \textit{Horizontal Scaling}: Shared-Nothing Architectire
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Algorithms for replicating changes between nodes}
+		\begin{itemize}
+			\pitem Single-leader replication
+			\pitem Multi-leader replication
+			\pitem Leaderless replication
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Single-Leader Replication}
+		\includegraphics[width=\textwidth]{assets/single-leader-replication.png}
+		\textbf{Databases with single-leader replication support}:
+		\begin{itemize}
+			\item \textbf{SQL}: PostgreSQL, MySQL, Oracle Data Guard
+			\item \textbf{NoSQL}: MongoDB, RethinkDB, CouchDB, Redis, Neo4j
+			\item \textbf{Others}: Kafka, RabbitMQ, NATS, DRDB
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Multi-Leader Replication}
+		\includegraphics[width=\textwidth]{assets/multi-leader-replication.png}
+		\textbf{Compare with single-leader replication}:
+		\begin{itemize}
+			\pitem Performance
+			\pitem Tolerance of datacenter outages
+			\pitem Tolerance of network problems
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Leaderless Replication}
+		\includegraphics[width=\textwidth]{assets/leaderless-example.png}
+		\begin{itemize}
+			\pitem \textbf{Mechanism}: Write on all nodes
+			\pitem \textbf{Databases}: Amazon DynamoDB, Cassandra, ScyllaDB, Riak
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Eventual Consistency}
+		\begin{itemize}
+			\pitem What is eventual consistency?
+			\pitem How to fix inconsistency in leaderless replication?
+			\begin{itemize}
+				\pitem Read repair
+				\pitem Anti-entropy process
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Quorum}
+		\includegraphics[width=\textwidth]{assets/quorum.png}
+		\begin{itemize}
+			\pitem \textbf{Condition}: $w + r > n$
+			\pitem \textbf{Recommendation}: $w = r = (n + 1) / 2$
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Sloppy Quorum and Hinted handoff}
+		\begin{itemize}
+			\pitem Sloppy Quorum
+			\pitem Hinted handoff
+			\pitem $w + r > n$ can be inconsistent
+			\pitem Availablity \& Consistency Trade-Off
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{ScyllaDB Cluster}
+		\begin{minted}[fontsize=\tiny]{yaml}
+version: "3.3"
+services:
+  scylla1:
+    container_name: scylla1
+    image: docker.arvancloud.ir/scylladb/scylla:latest
+    ports:
+      - 9001:9042
+    command: --seeds=scylla2
+  scylla2:
+    container_name: scylla2
+    image: docker.arvancloud.ir/scylladb/scylla:latest
+    ports:
+      - 9002:9042
+    command: --seeds=scylla1
+  scylla3:
+    container_name: scylla3
+    image: docker.arvancloud.ir/scylladb/scylla:latest
+    ports:
+      - 9003:9042
+    command: --seeds=scylla1,scylla2
+		\end{minted}
+
+		\pause
+		\begin{minted}[fontsize=\tiny]{shell}
+$ docker-compose up -d
+$ docker exec -it scylla1 nodetool status
+Datacenter: datacenter1
+=======================
+-- Address    Load      Tokens Owns Host ID                              Rack 
+UN 172.23.0.2 797.73 KB 256    ?    e43a9696-3de7-45e6-b224-0a435d734ee3 rack1
+UN 172.23.0.3 591.56 KB 256    ?    8ac23529-ee87-4537-bd97-de7140a51649 rack1
+UN 172.23.0.4 779.90 KB 256    ?    e6088a14-5e8e-44d8-a902-c56f1e81d316 rack1
+		\end{minted}
+	\end{frame}
+
+	\begin{frame}[fragile]{ScyllaDB Client}
+		\begin{minted}[fontsize=\scriptsize]{go}
+cluster := gocql.NewCluster(
+	"localhost:9001", "localhost:9002", "localhost:9003"
+)
+cluster.Consistency = gocql.Quorum
+session, _ := cluster.CreateSession()
+
+session.Query(
+  `CREATE KEYSPACE IF NOT EXISTS test
+  WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': '2'}`,
+).Exec()
+session.Query(`CREATE TABLE IF NOT EXISTS test.users (
+  id UUID PRIMARY KEY, username text, email text
+)`).Exec()
+
+for range 100000 {
+  uuid := fmt.Sprint(gocql.UUIDFromTime(time.Now()))
+  q := `INSERT INTO test.users (id, username, email) VALUES (?, ?, ?)`
+  session.Query(q, uuid, "username", "mock@email.com").Exec()
+}
+		\end{minted}
+	\end{frame}
+
+	\begin{frame}{Check replicas}
+		\includegraphics[width=\textwidth]{assets/scylladb_inconsistency.png}
+	\end{frame}
+\end{document}
