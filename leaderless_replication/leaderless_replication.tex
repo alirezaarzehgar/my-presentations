@@ -16,29 +16,39 @@
 
 	\begin{frame}{Scaling to Higher Load}
 		\begin{itemize}
-			\pitem \textit{Vertical Scaling}
+			\pitem \textbf{Scaling Approaches}
 			\begin{itemize}
-				\pitem Shared-Memory Architectire
-				\pitem Shared-Disk Architectire
+				\pitem Vertical Scaling
+				\pitem Horizontal Scaling
 			\end{itemize}
-			\pitem \textit{Horizontal Scaling}
+
+			\pitem \textbf{Scaling Architectires}
 			\begin{itemize}
-				\pitem Shared-Nothing Architectire
+				\pitem Shared-Memory
+				\pitem Shared-Disk
+				\pitem Shared-Nothing
 			\end{itemize}
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{Replication}
+	\begin{frame}{Reasons To Distribute Data}
 		\begin{itemize}
-			\pitem What is Replication?
-			\pitem Leaders and Followers
-			\pitem Reasons why you might want to replicate data
-			\begin{itemize}
-				\pitem Latency
-				\pitem Fault tolerance/high availability
-				\pitem Scalability
-			\end{itemize}
+			\pitem Scalability
+			\pitem Reliability
+			\pitem Performance
 		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[plain,c]
+		\begin{center}
+		\includegraphics[width=\textwidth]{assets/amdahl.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}[plain,c]
+		\begin{center}
+		\Huge What is Data Relication, Leaders and Followers ?
+		\end{center}
 	\end{frame}
 
 	\begin{frame}{Algorithms for replicating changes between nodes}
@@ -51,17 +61,19 @@
 
 	\begin{frame}{Single-Leader Replication}
 		\includegraphics[width=\textwidth]{assets/single-leader-replication.png}
-		\textbf{Databases with single-leader replication support}:
 		\begin{itemize}
-			\item \textbf{SQL}: PostgreSQL, MySQL, Oracle Data Guard
-			\item \textbf{NoSQL}: MongoDB, RethinkDB, CouchDB, Redis, Neo4j
-			\item \textbf{Others}: Kafka, RabbitMQ, NATS, DRBD
+			\pitem \textbf{What happens when the leader fails?}
+			\pitem \textbf{Databases with single-leader replication support}
+			\begin{itemize}
+				\item \textbf{SQL}: PostgreSQL, MySQL, Oracle Data Guard
+				\item \textbf{NoSQL}: MongoDB, RethinkDB, CouchDB, Redis, Neo4j
+				\item \textbf{Others}: Kafka, RabbitMQ, NATS, DRBD
+			\end{itemize}
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Multi-Leader Replication}
 		\includegraphics[width=\textwidth]{assets/multi-leader-replication.png}
-		\textbf{Compare with single-leader replication}:
 		\begin{itemize}
 			\pitem Performance
 			\pitem Tolerance of datacenter outages
