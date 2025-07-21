@@ -5,22 +5,6 @@
 \newcommand{\pitem}{\pause\item}
 \usetheme{metropolis}
 
-\newcommand{\img}[3]{
-	\only<#1>{
-		\begin{figure}
-			\includegraphics[width=\textwidth]{#2}
-			\caption{#3}
-		\end{figure}
-	}
-}
-
-\newcounter{_i}
-\newcommand{\starcounting}{\setcounter{_i}{2}}
-\newcommand{\simg}[2]{
-	\stepcounter{_i}
-	\img{\value{_i}}{#1}{#2}
-}
-
 \author{Alireza Arzehgar}
 \title{Leaderless Replication}
 \date{\today}
@@ -30,33 +14,6 @@
 		\titlepage
 	\end{frame}
 
-	\begin{frame}{Introduction}
-		\begin{itemize}
-			\pitem Replication
-			\pitem Scaling to Higher Load
-			\pitem Algorithms for replicating changes between nodes
-			\pitem Single-Leader Replication
-			\pitem Multi-Leader Replication
-			\pitem Leaderless Replication
-			\pitem Eventual Consistency
-			\pitem Quorum
-			\pitem Sloppy Quorum and Hinted handoff
-			\pitem Real ScyllaDB cluster scenario
-		\end{itemize}
-	\end{frame}
-
-	\begin{frame}{Replication}
-		\begin{itemize}
-			\pitem What is Replication?
-			\pitem Reasons why you might want to replicate data
-			\begin{itemize}
-				\pitem Latency
-				\pitem Fault tolerance/high availability
-				\pitem Scalability
-			\end{itemize}
-		\end{itemize}
-	\end{frame}
-
 	\begin{frame}{Scaling to Higher Load}
 		\begin{itemize}
 			\pitem \textit{Vertical Scaling}
@@ -64,7 +21,23 @@
 				\pitem Shared-Memory Architectire
 				\pitem Shared-Disk Architectire
 			\end{itemize}
-			\pitem \textit{Horizontal Scaling}: Shared-Nothing Architectire
+			\pitem \textit{Horizontal Scaling}
+			\begin{itemize}
+				\pitem Shared-Nothing Architectire
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Replication}
+		\begin{itemize}
+			\pitem What is Replication?
+			\pitem Leaders and Followers
+			\pitem Reasons why you might want to replicate data
+			\begin{itemize}
+				\pitem Latency
+				\pitem Fault tolerance/high availability
+				\pitem Scalability
+			\end{itemize}
 		\end{itemize}
 	\end{frame}
 
@@ -82,7 +55,7 @@
 		\begin{itemize}
 			\item \textbf{SQL}: PostgreSQL, MySQL, Oracle Data Guard
 			\item \textbf{NoSQL}: MongoDB, RethinkDB, CouchDB, Redis, Neo4j
-			\item \textbf{Others}: Kafka, RabbitMQ, NATS, DRDB
+			\item \textbf{Others}: Kafka, RabbitMQ, NATS, DRBD
 		\end{itemize}
 	\end{frame}
 
@@ -97,38 +70,68 @@
 	\end{frame}
 
 	\begin{frame}{Leaderless Replication}
-		\includegraphics[width=\textwidth]{assets/leaderless-example.png}
+		\includegraphics[width=0.9\textwidth]{assets/quorum.png}
 		\begin{itemize}
-			\pitem \textbf{Mechanism}: Write on all nodes
+			\pitem \textbf{Mechanism}: Read \& write on all nodes
 			\pitem \textbf{Databases}: Amazon DynamoDB, Cassandra, ScyllaDB, Riak
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{Eventual Consistency}
-		\begin{itemize}
-			\pitem What is eventual consistency?
-			\pitem How to fix inconsistency in leaderless replication?
-			\begin{itemize}
-				\pitem Read repair
-				\pitem Anti-entropy process
-			\end{itemize}
-		\end{itemize}
-	\end{frame}
-
 	\begin{frame}{Quorum}
-		\includegraphics[width=\textwidth]{assets/quorum.png}
+		\includegraphics[width=0.9\textwidth]{assets/quorum.png}
 		\begin{itemize}
+			\pitem \textbf{Quorum Factors}
+			\begin{itemize}
+				\pitem Number of nodes: $n$
+				\pitem Sync writes: $w$
+				\pitem Sync reads: $r$
+			\end{itemize}
 			\pitem \textbf{Condition}: $w + r > n$
 			\pitem \textbf{Recommendation}: $w = r = (n + 1) / 2$
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{Sloppy Quorum and Hinted handoff}
+	\begin{frame}{How to handle inconsistencies}
+		\includegraphics[width=\textwidth]{assets/quorum.png}
+		\begin{itemize}
+			\pitem Read repair
+			\pitem Anti-entropy process
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{More High Availability}
 		\begin{itemize}
 			\pitem Sloppy Quorum
-			\pitem Hinted handoff
+			\pitem Hinted Handoff
 			\pitem $w + r > n$ can be inconsistent
 			\pitem Availablity \& Consistency Trade-Off
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Cassandra \& ScyllaDB Consistency Levels}
+		\begin{itemize}
+			\pitem ALL: w = n, r = n
+			\pitem ONE: w = 1, r = 1
+			\pitem QUORUM: w = r = (n//2) + 1
+			\pitem ANY (Hinted Handoff): w = 1, r = 1
+			\pitem LOCAL\_ONE
+			\pitem LOCAL\_QUORUM
+			\pitem EACH\_QUORUM
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[plain,c]
+		\begin{center}
+		\Huge Near-World Example
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{About Our Mission}
+		\begin{itemize}
+			\pitem ScyllaDB
+			\pitem Docker Compose
+			\pitem Golang
+			\pitem Tmux
 		\end{itemize}
 	\end{frame}
 
@@ -141,7 +144,6 @@ services:
     image: docker.arvancloud.ir/scylladb/scylla:latest
     ports:
       - 9001:9042
-    command: --seeds=scylla2
   scylla2:
     container_name: scylla2
     image: docker.arvancloud.ir/scylladb/scylla:latest
@@ -153,7 +155,7 @@ services:
     image: docker.arvancloud.ir/scylladb/scylla:latest
     ports:
       - 9003:9042
-    command: --seeds=scylla1,scylla2
+    command: --seeds=scylla1
 		\end{minted}
 
 		\pause
@@ -179,7 +181,7 @@ session, _ := cluster.CreateSession()
 
 session.Query(
   `CREATE KEYSPACE IF NOT EXISTS test
-  WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': '2'}`,
+  WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': '3'}`,
 ).Exec()
 session.Query(`CREATE TABLE IF NOT EXISTS test.users (
   id UUID PRIMARY KEY, username text, email text
