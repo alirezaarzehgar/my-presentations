@@ -4,22 +4,6 @@
 \newcommand{\pitem}{\pause\item}
 \usetheme{metropolis}
 
-\newcommand{\img}[3]{
-	\only<#1>{
-		\begin{figure}
-			\includegraphics[width=\textwidth]{#2}
-			\caption{#3}
-		\end{figure}
-	}
-}
-
-\newcounter{_i}
-\newcommand{\starcounting}{\setcounter{_i}{2}}
-\newcommand{\simg}[2]{
-	\stepcounter{_i}
-	\img{\value{_i}}{#1}{#2}
-}
-
 \newcommand\XOR{\mathbin{\char`\^}}
 
 \author{Alireza Arzehgar}
@@ -36,14 +20,14 @@
 			\pitem UNIX - 1969
 			\pitem BSD - 1978
 			\pitem NetBSD - 1993 (Founders: Chris, Theo, Adam, Charles)
-			\pitem OpenBSD - 1995 (Founder: Theo)
+			\pitem OpenBSD - 1995 (Founder: Theo de Raadt)
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{How OpenBSD arised?}
+	\begin{frame}{How OpenBSD Arose}
 		\begin{itemize}
-			\pitem Theo De Raadt disagreed with NetBSD team.
-			\pitem Theo goals
+			\pitem Theo de Raadt disagreed with the NetBSD team
+			\pitem Theo's goals:
 			\begin{itemize}
 				\pitem Freedom
 				\pitem Security
@@ -59,43 +43,41 @@
 			\pitem Papers
 			\pitem Releases
 			\pitem Hackathons
-			\pitem Artworks
+			\pitem Artwork
 			\pitem Songs
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{3.3: Puff the Barbarian}
-		\center
+		\centering
 		\includegraphics[height=0.9\textheight]{./assets/puff.png}
 	\end{frame}
 
 	\begin{frame}{W\^{}X}
 		\begin{itemize}
-			\pitem Memory Protection
-			\pitem Buffer Overflow
-			\pitem XOR
-			\pitem Write or Execute
+			\pitem Memory protection
+			\pitem Buffer overflow prevention
+			\pitem XOR-based security
+			\pitem Write or Execute (never both)
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{MMU}
+	\begin{frame}{Memory Management Unit (MMU)}
 		\begin{itemize}
-			\pitem Help to kernel
-			\pitem Memory Protection
-			\pitem Virtual Memory
-			\pitem per-page eXecute bit or Permission
+			\pitem Assists the kernel
+			\pitem Memory protection
+			\pitem Virtual memory management
+			\pitem Per-page execute bit permissions
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{OpenBSD drama}
-		\begin{center}
-		\Huge UltraSPARC III vs AMD Hammer
-		\end{center}
+	\begin{frame}{OpenBSD Controversy}
+		\centering
+		\huge UltraSPARC III vs. AMD Hammer
 	\end{frame}
 
-	\begin{frame}{OpenBSD drama}
-		\begin{center}
-		\Huge Open to discussion
-		\end{center}
+	\begin{frame}{OpenBSD Discussion}
+		\centering
+		\Huge Open for discussion
 	\end{frame}
 \end{document}
