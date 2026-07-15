@@ -1,0 +1,66 @@
+\documentclass[xcolor={rgb}]{beamer}
+\usepackage[labelformat=empty]{caption}
+\usepackage{minted}
+
+\newcommand{\pitem}{\pause\item}
+\usetheme{metropolis}
+
+\author{Alireza Arzehgar}
+\title{Tale of Software Engineering from an Operations Perspective}
+\date{\today}
+
+\begin{document}
+	\begin{frame}[plain]
+		\titlepage
+	\end{frame}
+
+	\begin{frame}{Introduction}
+	\begin{itemize}
+		\pitem Software Development challenges at scale
+		\pitem Confident Software Development using tests and CI
+		\pitem Reducing deployment cost using continuous deployments
+		\pitem Containers for self-deployable and independent units 
+	\end{itemize}
+	\end{frame}
+
+	\begin{frame}{SWE challenges at scale}
+	\begin{itemize}
+		\pitem What happens when the software lifespan is not short?
+		\pitem What happens if the team becomes larger?
+		\pitem What happens if the product scale becomes larger?
+		\pitem What happens if there are too many changes because of the mentioned challenges?
+	\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Confidence with testing}
+	\begin{itemize}
+		\pitem How to test software
+		\pitem Linters and quality checkers
+		\pitem Unit test
+		\pitem Integration test
+		\pitem E2E test
+		\pitem Pre/Post submit tests
+		\pitem Fitness functions
+		\pitem Smoke test
+	\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Continuous Integration}
+	\begin{itemize}
+		\pitem Checking code quality
+		\pitem Running all kinds of tests
+		\pitem Building/packaging applications
+		\pitem Pushing to Artifactory
+	\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Continuous Delivery/Deployment}
+	\begin{itemize}
+		\pitem How to run an application on servers?
+		\pitem Manual deployment challenges
+		\pitem Containers vs Virtual Machines
+		\pitem Container concepts
+	\end{itemize}
+	\end{frame}
+\end{document}
+
